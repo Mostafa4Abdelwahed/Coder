@@ -1,0 +1,15 @@
+.table-users::-webkit-scrollbar {
+    height: 10px;
+}
+/* Track */
+.table-users::-webkit-scrollbar-track {
+    background: #e6e6e6 !important;
+}
+/* Handle */
+.table-users::-webkit-scrollbar-thumb {
+    background: #4F46E5 !important;
+}
+/* Handle on hover */
+.table-users::-webkit-scrollbar-thumb:hover {
+    background: #3f39b4 !important;
+}
