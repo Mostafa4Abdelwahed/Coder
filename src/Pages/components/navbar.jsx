@@ -1,12 +1,18 @@
+import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
 const navbar = () => {
+  const signOutSubmitHandler = ()=>{
+    localStorage.removeItem('userInfo');
+    location.reload();
+  }
+  const { user } = useSelector(state => state.auth)
   const links = [
-    {name:"ما الذي نفعلة", link:"#services"},
-    {name:"من نحن", link:"#about"},
-    {name:"كورساتنا", link:"#courses"},
-    {name:"رئيتنا", link:"#message"},
-    {name:"فريق العمل", link:"#team"},
+    { name: "ما الذي نفعلة", link: "#services" },
+    { name: "من نحن", link: "#about" },
+    { name: "كورساتنا", link: "#courses" },
+    { name: "رئيتنا", link: "#message" },
+    { name: "فريق العمل", link: "#team" },
   ]
   return (
     <header className="bg-white mx-auto py-3">
@@ -26,10 +32,10 @@ const navbar = () => {
                 </li>
 
                 {
-                  links.map((link)=>{
+                  links.map((link) => {
                     <li>
-                    <a className="text-gray-900 hover:bg-indigo-700 px-5 py-3 rounded-full tajawal-medium transition hover:text-gray-100" href={link.link}>{link.name}</a>
-                  </li>  
+                      <a className="text-gray-900 hover:bg-indigo-700 px-5 py-3 rounded-full tajawal-medium transition hover:text-gray-100" href={link.link}>{link.name}</a>
+                    </li>
                   })
                 }
 
@@ -59,21 +65,28 @@ const navbar = () => {
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <Link to="/login"
-                className="rounded-md bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white shadow"
-                href="#"
-              >
-                تسجيل
-              </Link>
+              {
+                user ? (<>
+                <form onSubmit={signOutSubmitHandler}>
+                  <button>تسجيل الخروج</button>
+                </form>
+                </>) : (<>
+                  <Link to="/login"
+                    className="rounded-md bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white shadow"
+                    href="#"
+                  >
+                    تسجيل
+                  </Link>
 
-              <div className="hidden sm:flex">
-                <Link to="/register"
-                  className="transition rounded-md hover:bg-indigo-700 hover:text-gray-100 bg-gray-100 px-5 py-2.5 text-sm font-medium text-indigo-700"
-                  href="#"
-                >
-                  إنشاء حساب
-                </Link>
-              </div>
+                  <div className="hidden sm:flex">
+                    <Link to="/register"
+                      className="transition rounded-md hover:bg-indigo-700 hover:text-gray-100 bg-gray-100 px-5 py-2.5 text-sm font-medium text-indigo-700"
+                      href="#"
+                    >
+                      إنشاء حساب
+                    </Link>
+                  </div></>)
+              }
             </div>
 
             <div className="block md:hidden">
@@ -93,11 +106,11 @@ const navbar = () => {
 
                 <div class="hs-dropdown-menu container z-50 space-y-1 py-2 transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-full bg-white shadow-md p-2 mt-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700 after:h-4 after:absolute after:-bottom-4 after:start-0 after:w-full before:h-4 before:absolute before:-top-4 before:start-0 before:w-full" aria-labelledby="hs-dropdown-default">
                   {
-                    links.map((link)=>{
-                      return(
+                    links.map((link) => {
+                      return (
                         <a href={link.link} class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-indigo-700 hover:text-white transition focus:outline-none focus:bg-indigo-700 focus:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700">
-                        {link.name}
-                      </a>    
+                          {link.name}
+                        </a>
                       )
                     })
                   }

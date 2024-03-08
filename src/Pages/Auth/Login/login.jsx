@@ -5,7 +5,7 @@ import logo from './../../../assets/logo.png'
 import InputBox from '../components/InputBox'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { loginUser } from './../../../redux/apiCalls/authApiCall'
+import { loginUser } from '../../../redux/apiCalls/authApiCall'
 
 const SignIn = () => {
     const [email, setEmail] = useState('')

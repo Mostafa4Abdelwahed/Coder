@@ -15,6 +15,7 @@ export function loginUser(user) {
 
             const data = await response.json();
             dispatch(authActions.login(data))
+            localStorage.setItem('userInfo', JSON.stringify(data))
         
         
         } catch (error) {
