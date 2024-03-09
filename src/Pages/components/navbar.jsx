@@ -1,10 +1,16 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+import { logoutUser } from "../../redux/apiCalls/authApiCall";
+import { toast } from "react-toastify";
+
 
 const navbar = () => {
-  const signOutSubmitHandler = ()=>{
-    localStorage.removeItem('userInfo');
-    location.reload();
+
+  const dispatch = useDispatch();
+  const logoutHandler = (e) =>{
+    e.preventDefault();
+    dispatch(logoutUser());
+    toast.success("تم تسجيل الخروج بنجاح")
   }
   const { user } = useSelector(state => state.auth)
   const links = [
@@ -66,10 +72,11 @@ const navbar = () => {
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
               {
-                user ? (<>
-                <form onSubmit={signOutSubmitHandler}>
-                  <button>تسجيل الخروج</button>
-                </form>
+                user ? (<> {user?.isAdmin ? (<Link className="btn" to="/dashboard">لوحة التحكم</Link>) : 
+                <form onSubmit={logoutHandler}>
+                <button className="btn" type="submit">تسجيل الخروج</button>
+              </form>
+                }
                 </>) : (<>
                   <Link to="/login"
                     className="rounded-md bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white shadow"

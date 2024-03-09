@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
 import Error from "./error"
 import Home from "./Pages/Home/home"
 import Login from "./Pages/Auth/Login/login"
@@ -12,8 +12,10 @@ import CoursesDash from "./dashboard/Courses/courses"
 import TeamDash from "./dashboard/Team/team"
 import OrdersDash from "./dashboard/Orders/orders"
 import UsersDash from "./dashboard/Users/users"
+import { useSelector } from "react-redux"
 
 function App() {
+  const { user } = useSelector(state => state.auth)
   return (
     <BrowserRouter>
       <Routes>
@@ -21,17 +23,17 @@ function App() {
           <Route path="/" element={<Home />} />
         </Route>
         <Route path="dashboard" element={<LayoutDash />}>
-          <Route index element={<HomeDash />} />
-          <Route path="courses" element={<CoursesDash />} />
-          <Route path="team" element={<TeamDash />} />
-          <Route path="orders" element={<OrdersDash />} />
-          <Route path="users" element={<UsersDash />} />
+          <Route index element={user?.isAdmin ? <HomeDash /> : <Navigate to="/" />} />
+          <Route path="courses" element={user?.isAdmin ? <CoursesDash /> : <Navigate to="/" />} />
+          <Route path="team" element={user?.isAdmin ? <TeamDash /> : <Navigate to="/" />} />
+          <Route path="orders" element={user?.isAdmin ? <OrdersDash /> : <Navigate to="/" />} />
+          <Route path="users" element={user?.isAdmin ? <UsersDash /> : <Navigate to="/" />} />
         </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/reset-password" element={<RestPass />} />
-          <Route path="/change-password" element={<ChangePass />} />
-          <Route path="*" element={<Error />} />
+        <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+        <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />} />
+        <Route path="/reset-password" element={<RestPass />} />
+        <Route path="/change-password" element={<ChangePass />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
   )

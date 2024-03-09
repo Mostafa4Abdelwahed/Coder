@@ -1,3 +1,5 @@
+import { logoutUser } from "../../redux/apiCalls/authApiCall";
+import { useSelector, useDispatch } from "react-redux"
 import { Fragment, useState } from 'react';
 import { IoHome } from "react-icons/io5";
 import { FaPhotoVideo } from "react-icons/fa";
@@ -7,18 +9,22 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { BsDatabaseFillGear } from "react-icons/bs";
 import { Link, NavLink } from 'react-router-dom';
+import { IoMdLogOut } from "react-icons/io";
 import './sidebar.css'
 
 
 const sidebar = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth)
+
   const [show, setShow] = useState(false);
 
   const NavLinks = [
     // { name: 'الرئيسية', link: '/dashboard', icon: <IoHome /> },
-    { name: 'الكورسات', link: '/dashboard/courses', icon: <FaPhotoVideo />  },
-    { name: 'المستخدمين', link: '/dashboard/users', icon: <LuUsers />  },
-    { name: 'الفريق', link: '/dashboard/team', icon: <RiTeamLine />  },
-    { name: 'الأوردرات', link: '/dashboard/orders', icon: <MdFavoriteBorder />  },
+    { name: 'الكورسات', link: '/dashboard/courses', icon: <FaPhotoVideo /> },
+    { name: 'المستخدمين', link: '/dashboard/users', icon: <LuUsers /> },
+    { name: 'الفريق', link: '/dashboard/team', icon: <RiTeamLine /> },
+    { name: 'الأوردرات', link: '/dashboard/orders', icon: <MdFavoriteBorder /> },
   ];
   return (
     <Fragment>
@@ -34,8 +40,8 @@ const sidebar = () => {
             <div className="my-2 bg-gray-600 h-[1px]"></div>
           </div>
           <Link to='/dashboard' className='p-2.5 NavSide mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-indigo-500 text-white'>
-          <IoHome />
-          <span className='text-[15px] mr-4 text-gray-200 font-bold'>الرئيسية</span>
+            <IoHome />
+            <span className='text-[15px] mr-4 text-gray-200 font-bold'>الرئيسية</span>
           </Link>
           {
             NavLinks.map(({ name, link, icon }) => (
@@ -49,10 +55,10 @@ const sidebar = () => {
             )
             )
           }
-          {/* <Link to="/" target='_blank' className="active p-2.5 NavSide mt-10 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-indigo-500 text-white">
-            <FaExternalLinkAlt />
-            <span className='text-[15px] mr-4 text-gray-200 font-bold'>عرض الموقع</span>
-          </Link> */}
+          <button onClick={()=> dispatch(logoutUser())} className='p-2.5 w-full NavSide mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-indigo-500 text-white'>
+            <IoMdLogOut />
+             <span className='text-[15px] mr-4 text-gray-200 font-bold'>تسجيل الخروج</span>
+          </button>
         </div>
       </div>
       <div className="fixed z-50 top-0 left-0 right-0 block lg:hidden">
@@ -91,9 +97,9 @@ const sidebar = () => {
           </div>
         </header>
         <div className={show ? "navbar-links gap-5 border-b active" : "navbar-links gap-5 border-b"}>
-        <Link to='/dashboard' className='p-2.5 NavSide mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-indigo-500 text-white'>
-          <IoHome />
-          <span className='text-[15px] mr-4 text-gray-200 font-bold'>الرئيسية</span>
+          <Link to='/dashboard' className='p-2.5 NavSide mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-indigo-500 text-white'>
+            <IoHome />
+            <span className='text-[15px] mr-4 text-gray-200 font-bold'>الرئيسية</span>
           </Link>
           {
             NavLinks.map(({ name, link, icon }) => (
@@ -107,10 +113,10 @@ const sidebar = () => {
             )
             )
           }
-          {/* <Link to="/" target='_blank' className="active p-2.5 NavSide mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-indigo-500 text-white">
-            <FaExternalLinkAlt />
-            <span className='text-[15px] mr-4 text-gray-200 font-bold'>عرض الموقع</span>
-          </Link> */}
+          <button onClick={()=> dispatch(logoutUser())} className='p-2.5 w-full NavSide mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-indigo-500 text-white'>
+            <IoMdLogOut />
+             <span className='text-[15px] mr-4 text-gray-200 font-bold'>تسجيل الخروج</span>
+          </button>
         </div>
       </div>
     </Fragment>

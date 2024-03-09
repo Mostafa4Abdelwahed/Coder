@@ -1,12 +1,19 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import InputBox from '../components/InputBox'
 import logo from './../../../assets/logo.png'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../../redux/apiCalls/authApiCall';
+import swal from 'sweetalert';
 
 
 const register = () => {
+  const dispatch = useDispatch();
+  const { registerMessage } = useSelector(state => state.auth)
+
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -22,11 +29,23 @@ const register = () => {
     if (phone.trim() === "") {
       return toast.error("برجاء إدخال رقم الهاتف")
     }
-    else if (password.trim() === "") {
+    if (password.trim() === "") {
       return toast.error("برجاء إدخال الباسورد")
     }
+    dispatch(registerUser({name, email, phone, password}))
   }
 
+  const navigate = useNavigate();
+  if (registerMessage) {
+    swal({
+      title: registerMessage,
+      icon: "success"
+    }).then(isOk =>{
+      if (isOk) {
+        navigate("/login")
+      }
+    })
+  }
   return (
     <section className="bg-gray-100 min-h-[100vh] py-20 dark:bg-dark lg:py-[50px]">
       <div className="container mx-auto">
