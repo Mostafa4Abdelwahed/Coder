@@ -24,7 +24,7 @@ const sidebar = () => {
     { name: 'الكورسات', link: '/dashboard/courses', icon: <FaPhotoVideo /> },
     { name: 'المستخدمين', link: '/dashboard/users', icon: <LuUsers /> },
     { name: 'الفريق', link: '/dashboard/team', icon: <RiTeamLine /> },
-    { name: 'الأوردرات', link: '/dashboard/orders', icon: <MdFavoriteBorder /> },
+    { name: 'الطلبات', link: '/dashboard/orders', icon: <MdFavoriteBorder /> },
   ];
   return (
     <Fragment>

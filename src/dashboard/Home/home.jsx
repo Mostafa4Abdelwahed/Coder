@@ -4,7 +4,53 @@ import { RiTeamLine } from "react-icons/ri";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './../Orders/orders'
+import request from "../../utils/request"
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 const home = () => {
+  const { user } = useSelector(state => state.auth)
+
+  // State to store the fetched data
+  const [team, setTeam] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  const fetchTeam = async () => {
+    const { data } = await request.get("/api/enginners");
+    setTeam(data);
+  };
+  const fetchOrders = async () => {
+    const { data } = await request.get("/api/orders",{
+      headers: {
+        Authorization: "Bearer " + user.token,
+      }
+    });
+    setOrders(data);
+  };
+  const fetchUsers = async () => {
+    const { data } = await request.get("/api/users",{
+      headers: {
+        Authorization: "Bearer " + user.token,
+      }
+    });
+    setUsers(data);
+  };
+
+
+
+  // Call fetchData on component mount
+  useEffect(() => {
+    fetchTeam();
+  }, [team]);
+  useEffect(() => {
+    fetchOrders();
+  }, [orders]);
+  useEffect(() => {
+    fetchUsers();
+  }, [users]);
+
+
+
   return (
     <div className="p-5 bg-gray-900 min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-4">
@@ -15,7 +61,7 @@ const home = () => {
             <HiOutlineSaveAs />
           </div>
           <div class="p-6 pt-0">
-            <div class="text-2xl font-bold">374</div>
+            <div class="text-2xl font-bold">{orders.length}</div>
             <p class="text-xs text-white text-muted-foreground">العدد الكلي للطلبات</p>
           </div>
         </div>
@@ -25,7 +71,7 @@ const home = () => {
             <LuUsers />
           </div>
           <div class="p-6 pt-0">
-            <div class="text-2xl font-bold">22</div>
+            <div class="text-2xl font-bold">{users.length}</div>
             <p class="text-xs text-white text-muted-foreground">العدد الكلي للمستخدمين</p>
           </div>
         </div>
@@ -36,7 +82,7 @@ const home = () => {
           </div>
 
           <div class="p-6 pt-0">
-            <div class="text-2xl font-bold">6</div>
+            <div class="text-2xl font-bold">{team.length}</div>
             <p class="text-xs text-white text-muted-foreground">العدد الكلي لفريق العمل</p>
           </div>
         </div>

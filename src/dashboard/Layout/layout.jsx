@@ -6,7 +6,7 @@ const layout = () => {
     return (
         <Fragment>
             <Sidebar />
-            <div className="pr-0 lg:pr-[300px] pt-[57px] lg:pt-0"><Outlet /></div>
+            <div className="pr-0 lg:pr-[300px] bg-gray-900 pt-[57px] lg:pt-0"><Outlet /></div>
         </Fragment>
     )
 }

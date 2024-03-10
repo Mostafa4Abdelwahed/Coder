@@ -2,21 +2,28 @@ import { text } from '@fortawesome/fontawesome-svg-core';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
+import request from '../../../../utils/request';
+import { useSelector } from 'react-redux';
 
 
 const post = (props) => {
+    const { user } = useSelector(state => state.auth)
+
     const showAlert = () => {
         swal({
             title: "هل انت متأكد من الاشتراك في الكورس ؟",
             buttons: ["إلغاء","إشتراك"],
         })
-            .then((value) => {
+            .then(async (value) => {    
                 if (value) {
                     swal({
                         title: "تم ارسال طلب الاشتراك",
                         icon: "success"
                     })
-                    
+                    const response = await request.post("/api/orders",{
+                        course: props.courseId,
+                        user: user?.id
+                    });        
                 };
             });
     }
