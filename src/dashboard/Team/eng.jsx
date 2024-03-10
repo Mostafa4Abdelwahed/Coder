@@ -1,27 +1,30 @@
-import { toast } from 'react-toastify';
+import { Dialog, Transition } from '@headlessui/react'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React, { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
 import { useSelector } from 'react-redux'
-import request from "../../utils/request"
+import request from '../../utils/request'
 
-
-const userRow = (props) => {
+const eng = (props) => {
     let [isOpen, setIsOpen] = useState(false)
     function closeModal() {setIsOpen(false)}
     function openModal() {setIsOpen(true)}
     const { user } = useSelector(state => state.auth)
+  
     return (
         <Fragment>
-            <tr>
-                <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{props.name}</td>
-                <td className="whitespace-nowrap px-4 py-2 text-white">{props.email}</td>
-                <td className="whitespace-nowrap px-4 py-2 text-white">{props.phone}</td>
-                <td className="whitespace-nowrap px-4 py-2 text-white">{props.isAdmin ? "ادمن" : "مستخدم"}</td>
-                <td className="whitespace-nowrap px-4 py-2 text-white">
-                    <button onClick={openModal} className='bg-indigo-700 px-5 w-36 rounded py-2'>حذف المستخدم</button>
-                </td>
-            </tr>
+            <div className="block rounded-lg p-2 border bg-gray-950 shadow-indigo-100">
+                <div className="img-card relative">
+                    <img alt="thumbinal" src={props.img}
+                        className="h-52 w-full course-b -z-10 rounded-md object-cover"
+                    />
+                    <h1 className="text-left z-10 text-white font-extrabold text-2xl absolute bottom-2 left-3">Eng/ {props.name}</h1>
+                </div>
+                <div className="mt-3">
+                    <button onClick={()=> openModal()} className="btn bg-indigo-700 border-none w-full text-white hover:bg-indigo-600">حذف المهندس</button>
+                </div>
+            </div>
+
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10 bg-gray-800" onClose={closeModal}>
                     <Transition.Child
@@ -56,7 +59,7 @@ const userRow = (props) => {
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <p className="text-base text-right text-gray-200">
-                                            هل انت متأكد من حذف المستخدم, إذا قمت بحذفة لا يمكنك استرجاعة مرة اخري
+                                            هل انت متأكد من حذف المهندس, إذا قمت بحذفة لا يمكنك استرجاعة مرة اخري
                                         </p>
                                     </div>
 
@@ -65,17 +68,16 @@ const userRow = (props) => {
                                             type="button"
                                             className="btn border-none grow text-white hover:bg-indigo-600 w-[50%] bg-indigo-700"
                                             onClick={async () => {
-                                                const res = await request.delete(`/api/users/${props.userId}`, {
+                                                const res = await request.delete(`/api/enginners/${props.engId}`, {
                                                     headers: {
                                                         Authorization: "Bearer " + user?.token
                                                     }
                                                 })
-                                                toast.success("تم حذف المستخدم بنجاح");
-                                                setIsOpen(false);
+                                                toast.success("تم حذف المهندس بنجاح")
                                                 closeModal()
                                             }}
                                         >
-                                            حذف المستخدم
+                                            حذف المهندس
                                         </button>
 
                                         <button
@@ -96,4 +98,4 @@ const userRow = (props) => {
     )
 }
 
-export default userRow
+export default eng

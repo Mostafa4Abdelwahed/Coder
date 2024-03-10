@@ -18,6 +18,9 @@ const users = () => {
 
   const addUserHandler = async () => {
     try {
+      if (name.trim() === "" || email.trim() === "" || phone.trim() === "" || password.trim() === "") {
+        toast.error("برجاء ملئ جميع الحقول")
+      }
       const res = await request.post("/api/auth/newuser", {
         name: name,
         email: email,
@@ -33,6 +36,7 @@ const users = () => {
       setEmail("")
       setPhone("")
       setPassword("")
+      toast.success("تم اضافة المستخدم بنجاح")
     } catch (error) {
       console.log(error);
     }

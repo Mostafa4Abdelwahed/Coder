@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux'
 import request from '../../utils/request'
 import { Dialog, Transition } from '@headlessui/react'
@@ -71,6 +73,7 @@ const post = ({ img, title, dipId }) => {
                             Authorization: "Bearer " + user?.token
                           }
                         })
+                        toast.success("تم حذف الكورس بنجاح")
                       }}
                     >
                       حذف الكورس

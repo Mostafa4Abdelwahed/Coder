@@ -22,7 +22,7 @@ const post = (props) => {
                     })
                     const response = await request.post("/api/orders",{
                         course: props.courseId,
-                        user: user?.id
+                        user: user?._id
                     });        
                 };
             });

@@ -1,8 +1,32 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './orders.css'
+import OrderRow from "./OrderRow"
+import { useEffect, useState } from 'react';
+import request from '../../utils/request';
+import { useSelector } from 'react-redux';
 
 const orders = () => {
+  const { user } = useSelector(state => state.auth)
+
+    // Get All Orders
+    const [orders, setOrders] = useState([]);
+    const fetchData = async () => {
+      try {
+        const { data } = await request.get("/api/orders", {
+          headers: {
+            Authorization: "Bearer " + user?.token
+          }
+        });
+        setOrders(data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    useEffect(() => {
+      fetchData()
+    }, [orders])
+  
   return (
     <div className='p-5 bg-gray-900 min-h-screen text-white'>
       <nav className='flex justify-between items-center'>
@@ -14,7 +38,7 @@ const orders = () => {
           <thead>
             <tr>
               <th className="whitespace-nowrap px-4 py-2 font-medium text-white">الإسم</th>
-              <th className="whitespace-nowrap px-4 py-2 font-medium text-white">الإيميل</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-white">الكورس</th>
               <th className="whitespace-nowrap px-4 py-2 font-medium text-white">رقم الهاتف</th>
               <th className="whitespace-nowrap px-4 py-2 font-medium text-white">الحالة</th>
               <th className="whitespace-nowrap px-4 py-2 font-medium text-white">المزيد</th>
@@ -22,35 +46,13 @@ const orders = () => {
           </thead>
 
           <tbody className="divide-y table-users divide-gray-200">
-            <tr>
-              <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">انتظار</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">
-                <button onClick={() => document.getElementById('delete_confirm').showModal()} className='bg-indigo-700 px-5 mx-2 rounded py-2'>حذف الطلب</button>
-                <button onClick={() => document.getElementById('order_confirm').showModal()} className='bg-indigo-700 px-5 mx-2 rounded py-2'>تأكيد الطلب</button>
-              </td>
-            </tr>
-            <tr>
-              <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">مؤكد</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">
-                <button onClick={() => document.getElementById('delete_confirm').showModal()} className='bg-indigo-700 px-5 mx-2 rounded py-2'>حذف الطلب</button>
-              </td>
-            </tr>
-            <tr>
-              <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">انتظار</td>
-              <td className="whitespace-nowrap px-4 py-2 text-white">
-                <button onClick={() => document.getElementById('delete_confirm').showModal()} className='bg-indigo-700 px-5 mx-2 rounded py-2'>حذف الطلب</button>
-                <button onClick={() => document.getElementById('order_confirm').showModal()} className='bg-indigo-700 px-5 mx-2 rounded py-2'>تأكيد الطلب</button>
-              </td>
-            </tr>
+            {
+              orders.map((order)=>{
+                return (
+                  <OrderRow name={order?.user?.name} phone={order?.user?.phone} courseName={order?.course?.title} isApprov={order?.isApproved} reqId={order?._id}/>
+                )
+              })
+            }
           </tbody>
         </table>
       </div>

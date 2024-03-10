@@ -50,12 +50,12 @@ const SignIn = () => {
                                     />
                                 </div>
                             </form>
-                            <Link
+                            {/* <Link
                                 to="/reset-password"
                                 className="mb-2 inline-block text-base text-gray-900 hover:text-indigo-7010 hover:underline dark:text-white"
                             >
                                 هل نسيت كلمة السر ؟
-                            </Link>
+                            </Link> */}
                             <p className="text-gray-900">
                                 <span className="pr-0.5"> ليس لدي حساب </span>
                                 <Link

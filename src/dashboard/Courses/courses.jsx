@@ -1,4 +1,6 @@
 import './courses.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import request from '../../utils/request';
 import Post from "./post"
 import { useEffect, useState } from 'react';
@@ -7,11 +9,14 @@ import { useSelector } from 'react-redux';
 
 const courses = () => {
   const { user } = useSelector(state => state.auth)
+  const [data, setData] = useState([]);
   const [title, setTitle] = useState();
   const [url, setUrl] = useState();
-  const [data, setData] = useState([]);
 
   const addCourseHandler = async ()=>{
+    if (title.trim() === "" || url.trim() === "") {
+      toast.error("برجاء ملئ جميع الحقول")
+    }
    const res = await request.post("/api/courses",{
     title: title,
     url: url
@@ -68,6 +73,7 @@ const courses = () => {
           </div>
         </div>
       </dialog>
+      <ToastContainer />
     </div>
   )
 }
