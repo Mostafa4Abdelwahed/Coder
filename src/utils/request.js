@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const request = axios.create({
-    baseURL: "http://localhost:3000"
+    baseURL: "https://coder-academy-api.onrender.com"
 })
 
 export default request
