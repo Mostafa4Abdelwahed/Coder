@@ -1,9 +1,10 @@
 import Dev from './dev'
-import OwlCarousel from 'react-owl-carousel'
 import 'owl.carousel/dist/assets/owl.carousel.min.css'
 import 'owl.carousel/dist/assets/owl.theme.default.min.css'
 import { useEffect, useState } from 'react'
 import request from "../../../../utils/request"
+import Slider from "react-slick";
+
 
 const team = () => {
     // State to store the fetched data
@@ -22,15 +23,40 @@ const team = () => {
     // Call fetchData on component mount
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [data]);
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: true,
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 580,
+                settings: {
+                    arrows: true,
+                    slidesToShow: 1,
+                },
+            },
+        ],
+
+    };
+
 
     return (
         <section id='team' className="bg-[#fafafa] mx-auto border-y-2 pt-5 pb-14">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-16">
-                <h1 className='font-extrabold text-4xl text-center my-6'>فريق العمل</h1>
-            </div>
-            <div className="carousel-lg hidden md:block px-16">
-                <OwlCarousel dir='ltr' margin={35} className='owl-theme container' items="4" loop nav dots>
+                <h1 className='font-extrabold text-4xl my-6'>فريق العمل</h1>
+                <div className="slider-container">
+                <Slider {...settings}>
                     {
                         data.map((eng) => {
                             return (
@@ -38,18 +64,9 @@ const team = () => {
                             )
                         })
                     }
-                </OwlCarousel>
+                </Slider>
             </div>
-            <div className="carousel-sm block md:hidden px-16">
-                <OwlCarousel dir='ltr' margin={35} className='owl-theme container mx-auto grid grid-cols-1 gap-16 lg:grid-cols-1 lg:gap-8' items="1" loop nav dots>
-                {
-                        data.map((eng) => {
-                            return (
-                                <Dev name={eng.name} job={eng.job} img={eng.image} />
-                            )
-                        })
-                    }
-                </OwlCarousel>
+
             </div>
         </section>
     )

@@ -18,6 +18,8 @@ const register = () => {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (name.trim() === "") {
@@ -26,26 +28,32 @@ const register = () => {
     if (email.trim() === "") {
       return toast.error("برجاء إدخال الإيميل")
     }
-    if (phone.trim() === "") {
+    if (phone.trim() === "" ) {
       return toast.error("برجاء إدخال رقم الهاتف")
+    }
+    if (phone.trim().length < 11 || phone.trim().length > 11) {
+      return toast.error("رقم الهاتف غير صالح")
     }
     if (password.trim() === "") {
       return toast.error("برجاء إدخال الباسورد")
     }
     dispatch(registerUser({name, email, phone, password}))
-  }
-
-  const navigate = useNavigate();
-  if (registerMessage) {
     swal({
-      title: registerMessage,
+      title: "تم إنشاء الحساب بنجاح, قم بتسجيل الدخول",
       icon: "success"
-    }).then(isOk =>{
+    })
+    .then(isOk =>{
       if (isOk) {
+        setName("")
+        setEmail("")
+        setPhone("")
+        setPassword("")
         navigate("/login")
       }
-    })
+    }
+    )
   }
+
   return (
     <section className="bg-gray-100 min-h-[100vh] py-20 dark:bg-dark lg:py-[50px]">
       <div className="container mx-auto">

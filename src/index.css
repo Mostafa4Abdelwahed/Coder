@@ -39,3 +39,22 @@ button.owl-next {
   background-color: #111827;
   color: #fff;
 }
+.slick-slide > div{
+  margin: 0px 15px !important;
+}
+button.slick-arrow.slick-prev {
+  background-color: #4F46E5;
+  width: 29px;
+  height: 29px;
+  right: -0px;
+  border-radius: 50%;
+  z-index: 55;
+}
+button.slick-arrow.slick-next {
+  background-color: #4F46E5;
+  width: 29px;
+  height: 29px;
+  left: -0px;
+  border-radius: 50%;
+  z-index: 55;
+}

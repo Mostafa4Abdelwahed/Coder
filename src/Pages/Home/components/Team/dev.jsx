@@ -2,7 +2,7 @@ import React from 'react'
 
 const dev = (props) => {
     return (
-        <article className="rounded-xl  border-gray-900 border bg-white p-4">
+        <article className="rounded-xl  border-gray-900 border bg-white p-4 flex flex-col items-center">
             <div className="flex items-center gap-4">
                 <img alt="developer" src={props.img} className="h-72 md:h-56 rounded object-cover object-top" />
             </div>

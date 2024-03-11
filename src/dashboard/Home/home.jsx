@@ -14,13 +14,15 @@ const home = () => {
   const [team, setTeam] = useState([]);
   const [orders, setOrders] = useState([]);
   const [users, setUsers] = useState([]);
+  const topUsers = users.slice(0, 5)
+  const topOrders = orders.slice(0, 5)
 
   const fetchTeam = async () => {
     const { data } = await request.get("/api/enginners");
     setTeam(data);
   };
   const fetchOrders = async () => {
-    const { data } = await request.get("/api/orders",{
+    const { data } = await request.get("/api/orders", {
       headers: {
         Authorization: "Bearer " + user.token,
       }
@@ -28,7 +30,7 @@ const home = () => {
     setOrders(data);
   };
   const fetchUsers = async () => {
-    const { data } = await request.get("/api/users",{
+    const { data } = await request.get("/api/users", {
       headers: {
         Authorization: "Bearer " + user.token,
       }
@@ -98,37 +100,23 @@ const home = () => {
               <thead>
                 <tr>
                   <th className="whitespace-nowrap px-4 py-2 font-medium text-white">الإسم</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-medium text-white">الإيميل</th>
                   <th className="whitespace-nowrap px-4 py-2 font-medium text-white">رقم الهاتف</th>
+                  <th className="whitespace-nowrap px-4 py-2 font-medium text-white">الكورس</th>
                 </tr>
               </thead>
 
               <tbody className="divide-y table-users divide-gray-200">
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
+                {
+                  topOrders.map((order) => {
+                    return (
+                      <tr>
+                        <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{order?.user?.name}</td>
+                        <td className="whitespace-nowrap px-4 py-2 text-white">{order?.user?.phone}</td>
+                        <td className="whitespace-nowrap px-4 py-2 text-white">{order?.course?.title}</td>
+                      </tr>
+                    )
+                  })
+                }
               </tbody>
             </table>
           </div>
@@ -147,31 +135,17 @@ const home = () => {
               </thead>
 
               <tbody className="divide-y table-users divide-gray-200">
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
-                <tr>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium text-white">مصطفي محمد</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">mstfa.mohmd22@gmail.com</td>
-                  <td className="whitespace-nowrap px-4 py-2 text-white">01282313371</td>
-                </tr>
+                {
+                  topUsers.map((user) => {
+                    return (
+                    <tr>
+                      <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{user.name}</td>
+                      <td className="whitespace-nowrap px-4 py-2 text-white">{user.email}</td>
+                      <td className="whitespace-nowrap px-4 py-2 text-white">{user.phone}</td>
+                    </tr>
+                    )
+                  })
+                }
               </tbody>
             </table>
           </div>

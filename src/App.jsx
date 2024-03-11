@@ -13,6 +13,8 @@ import TeamDash from "./dashboard/Team/team"
 import OrdersDash from "./dashboard/Orders/orders"
 import UsersDash from "./dashboard/Users/users"
 import { useSelector } from "react-redux"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   const { user } = useSelector(state => state.auth)
