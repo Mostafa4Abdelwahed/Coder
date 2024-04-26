@@ -52,7 +52,7 @@ const articles = () => {
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-16">
                 <h1 className='font-extrabold text-3xl my-6'>كورسات الأكاديمية</h1>
                     <div className="slider-container">
-                            <Slider {...settings}>
+                        {data ?                             <Slider {...settings}>
                                 {
                                     data.map((post) => {
                                         return (
@@ -60,7 +60,10 @@ const articles = () => {
                                         )
                                     })
                                 }
-                            </Slider>
+                            </Slider> 
+                            : 
+                            <h1>جاري تحميل الكورسات</h1>
+}
                     </div>
             </div>
             <ToastContainer />
