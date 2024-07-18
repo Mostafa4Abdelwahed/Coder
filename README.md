@@ -1,9 +1,8 @@
 
-# 📢 E-Learning
+# 📢 Coder Academy
 ![Coder](https://coder-academy.onrender.com/assets/logo-B9AIJMz4.png) 
 <br/>
 <br/>
-This is an online learning platform based on Mern Stack. Users can purchase courses online.
 
 # 🛠️ Tech stack 
 
@@ -56,3 +55,13 @@ This is an online learning platform based on Mern Stack. Users can purchase cour
 - Can has access to Admin dashboard and analyze the stats of everything in real time.
 - Can create courses, watch any course's lectures, add or delete lectures in Courses, and delete any courses.
 - Can change the user role and delete any user.
+
+## Demo
+
+- https://coder-academy.onrender.com
+### Admin:
+- Email: mostafa@gmail.com
+- Password: 123456
+### User:
+- Email: mostafa2@gmail.com
+- Password: 123456
