@@ -57,8 +57,8 @@
 - Can change the user role and delete any user.
 
 ## Demo
+https://coder-academy.onrender.com
 
-- https://coder-academy.onrender.com
 ### Admin:
 - Email: mostafa@gmail.com
 - Password: 123456
