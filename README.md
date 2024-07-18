@@ -1,6 +1,8 @@
 
 # 📢 E-Learning
 ![Coder](https://coder-academy.onrender.com/assets/logo-B9AIJMz4.png) 
+<br/>
+<br/>
 This is an online learning platform based on Mern Stack. Users can purchase courses online.
 
 # 🛠️ Tech stack 
